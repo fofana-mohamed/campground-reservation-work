@@ -1,19 +1,24 @@
 package com.techelevator.controllers;
+import com.techelevator.models.dao.JdbcReservationDao;
+import com.techelevator.models.dao.JdbcSiteDao;
+import com.techelevator.models.dao.JdbcCampgroundDao;
+import com.techelevator.models.dao.JdbcParkDao;
+import com.techelevator.views.UserInterface;
 
 import javax.sql.DataSource;
 
-public class CampgroundApplication
-{
+public class CampgroundApplication  {
+
+    JdbcParkDao jdbcParkDao;
     public CampgroundApplication(DataSource datasource) {
-        // create your DAOs here
+        this.jdbcParkDao = new JdbcParkDao(datasource);
     }
 
     public void run() {
-
+        UserInterface userInterface = new UserInterface();
         while(true) {
-
-            //display home screen and prompt for user input
-
+            String choice = userInterface.getHomeScreenSelection(jdbcParkDao);
+            if (choice.equals("Done")) {break;}
         }
     }
 }

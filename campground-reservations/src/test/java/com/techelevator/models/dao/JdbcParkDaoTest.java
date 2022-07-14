@@ -26,7 +26,7 @@ public class JdbcParkDaoTest extends DAOIntegrationTest
         String message = "Because the park dao should have received Acadia from the database when searching for id 1.";
 
         // act
-        Park actual = jdbcParkDao.getParkById(searchId);
+        Park actual = jdbcParkDao.getPark(searchId);
 
         // assert
         assertNotNull(message, actual);

@@ -20,7 +20,23 @@ public class UserInterface
         in = new Scanner(inStream);
     }
 
-    public static String getHomeScreenSelection(JdbcParkDao jdbcParkDao) {
+    public static String viewParksScreen(JdbcParkDao jdbcParkDao) {
+        System.out.println("View Park Interface");
+        System.out.println("Select a Park for Further Details");
+
+        List<Park> parks = jdbcParkDao.getAllParks();
+
+        for (Park park : parks) {
+            int id = park.getParkId();
+            String name = park.getName();
+
+            System.out.println(id + ") " + name);
+        }
+        System.out.println("Q) Quit");
+        System.out.println();
+        System.out.print("Please make a selection --> ");
+        String choice = in.nextLine();
+
         return " ";
     }
 }

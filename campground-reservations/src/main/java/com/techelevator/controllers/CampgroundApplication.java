@@ -17,11 +17,12 @@ public class CampgroundApplication  {
     public void run() {
         UserInterface userInterface = new UserInterface();
         while(true) {
-            String choice = userInterface.getHomeScreenSelection(jdbcParkDao);
-            if (choice.equals("Done")) {break;}
-            else if (choice.equals("1")) {}
-            else if (choice.equals("2")) {}
-            else if (choice.equals("3")) {}
+            String choice = userInterface.viewParksScreen(jdbcParkDao);
+
+            if (choice.equalsIgnoreCase("Q")) {break;}
+            else {
+
+            }
         }
     }
 }

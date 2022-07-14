@@ -19,6 +19,9 @@ public class CampgroundApplication  {
         while(true) {
             String choice = userInterface.getHomeScreenSelection(jdbcParkDao);
             if (choice.equals("Done")) {break;}
+            else if (choice.equals("1")) {}
+            else if (choice.equals("2")) {}
+            else if (choice.equals("3")) {}
         }
     }
 }

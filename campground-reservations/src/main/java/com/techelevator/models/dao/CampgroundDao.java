@@ -8,6 +8,7 @@ import java.util.List;
 public interface CampgroundDao {
 
     public Campground getCampground(int id);
+    public List<Campground> getCampgroundByParkID(int id);
     public List<Campground> getAllCampgrounds();
     public List<Campground> searchCampgroundByName(String name);
     public List<Campground> searchCampgroundsByCost(BigDecimal cost, boolean over, boolean under);

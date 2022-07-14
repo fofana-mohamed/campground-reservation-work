@@ -39,4 +39,23 @@ public class UserInterface
 
         return " ";
     }
+
+    public static void parkInformation(Park park) {
+        System.out.println("Park Information: ");
+
+        System.out.println("Name: " + park.getName());
+
+        System.out.println("Park ID: " + park.getParkId());
+
+        System.out.println("Location: " + park.getLocation());
+
+        System.out.println("Established: " + park.getDate());
+
+        System.out.println("Area: " + park.getArea());
+
+        System.out.println("Annual Visitors: " + park.getVisitors());
+
+        System.out.println("Description: " + park.getDescription());
+    }
+
 }

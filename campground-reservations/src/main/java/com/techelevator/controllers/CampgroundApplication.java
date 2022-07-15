@@ -38,16 +38,17 @@ public class CampgroundApplication  {
                             reservationChoice = userInterface.campgroundInformationCommand();
 
                             if(reservationChoice == 1) {
-                                String[] info = userInterface.chooseCampground();
-                                int campChoice = Integer.parseInt(info[0]);
+                                int campChoice = userInterface.chooseCampground();
 
                                 while(campChoice != 0) {
                                     boolean hasMatch = false;
                                     while (!hasMatch) {
-                                        String[] date = info[1].split("/");
+                                        String[] info = userInterface.getDates();
+
+                                        String[] date = info[0].split("/");
                                         LocalDate fromDate = LocalDate.of(Integer.parseInt(date[2]),
                                                 Integer.parseInt(date[0]), Integer.parseInt(date[1]));
-                                        date = info[2].split("/");
+                                        date = info[1].split("/");
                                         LocalDate toDate = LocalDate.of(Integer.parseInt(date[2]),
                                                 Integer.parseInt(date[0]), Integer.parseInt(date[1]));
                                         hasMatch = userInterface.displayCampgroundSiteAvailability(jdbcCampgroundDao, jdbcSiteDao, campChoice, fromDate, toDate);

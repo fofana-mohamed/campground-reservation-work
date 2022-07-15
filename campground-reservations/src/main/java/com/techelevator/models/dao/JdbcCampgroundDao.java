@@ -31,7 +31,7 @@ public class JdbcCampgroundDao implements CampgroundDao{
                 "FROM campground " +
                 "WHERE campground_id = ?;";
 
-        SqlRowSet rows = jdbcTemplate.queryForRowSet(sql);
+        SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, id);
 
         while(rows.next()) {
             retrieveValues(rows);
@@ -73,9 +73,7 @@ public class JdbcCampgroundDao implements CampgroundDao{
     }
 
     @Override
-    public List<Campground> searchCampgroundByName(String name) {
-        List<Campground> campgrounds = new ArrayList<>();
-
+    public Campground searchCampgroundByName(String name) {
         String sql = "SELECT * " +
                 "FROM campground " +
                 "WHERE name = ?;";
@@ -84,42 +82,11 @@ public class JdbcCampgroundDao implements CampgroundDao{
 
         while(rows.next()) {
             retrieveValues(rows);
-            campgrounds.add(mapToCampground(campgroundID, parkID, this.name, openFrom, openTo, dailyFee));
+           return mapToCampground(campgroundID, parkID, this.name, openFrom, openTo, dailyFee);
         }
-        return campgrounds;
-    }
-
-    @Override
-    public List<Campground> searchCampgroundsByCost(BigDecimal cost, boolean over, boolean under) {
-        List<Campground> campgrounds = new ArrayList<>();
-        String sql = "";
-        if (over) {
-            sql = "SELECT * " +
-                    "FROM campground " +
-                    "WHERE daily_fee < ?;";
-        } else if (under) {
-            sql = "SELECT * " +
-                    "FROM campground " +
-                    "WHERE daily_fee > ?;";
-        } else {
-            sql = "SELECT * " +
-                    "FROM campground " +
-                    "WHERE daily_fee = ?;";
-        }
-
-        SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, cost);
-
-        while(rows.next()) {
-            retrieveValues(rows);
-            campgrounds.add(mapToCampground(campgroundID, parkID, this.name, openFrom, openTo, dailyFee));
-        }
-        return campgrounds;
-    }
-
-    @Override
-    public List<Campground> searchCampgroundsBySeason(int openFrom, int openTo) {
         return null;
     }
+
     public Campground mapToCampground(int campgroundID, int parkID, String name, int openFrom, int openTo, double dailyFee) {
         Campground campground = new Campground();
         campground.setCampgroundID(campgroundID);

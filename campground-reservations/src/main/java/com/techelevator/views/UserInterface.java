@@ -132,15 +132,19 @@ public class UserInterface
         }
 
     }
-    public static String[] chooseCampground() {
-        String[] info = new String[3];
+    public static int chooseCampground() {
         System.out.println();
         System.out.print("Which campground --> ");
+        int choice = Integer.parseInt(in.nextLine());
+
+        return choice;
+    }
+    public static String[] getDates() {
+        String[] info = new String[2];
+        System.out.print("What is the arrival date --> ");
         info[0] = in.nextLine();
-        System.out.println("What is the arrival date --> ");
+        System.out.print("What is the departure date --> ");
         info[1] = in.nextLine();
-        System.out.println("What is the departure date --> ");
-        info[2] = in.nextLine();
 
         return info;
     }

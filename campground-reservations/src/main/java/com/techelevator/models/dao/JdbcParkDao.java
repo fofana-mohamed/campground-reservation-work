@@ -42,7 +42,7 @@ public class JdbcParkDao implements ParkDao {
     }
 
     @Override
-    public List<Park> searchParkByName(String name) {
+    public Park searchParkByName(String name) {
         List<Park> parks = new ArrayList<>();
 
         String sql = "SELECT * " +
@@ -53,9 +53,9 @@ public class JdbcParkDao implements ParkDao {
 
         while(rows.next()) {
             retrieveValues(rows);
-            parks.add(mapToParks(parkId,this.name,location,date,area,visitors,description));
+            return mapToParks(parkId,this.name,location,date,area,visitors,description);
         }
-        return parks;
+        return null;
     }
 
     @Override

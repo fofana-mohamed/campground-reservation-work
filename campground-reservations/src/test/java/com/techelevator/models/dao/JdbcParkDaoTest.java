@@ -39,4 +39,28 @@ public class JdbcParkDaoTest extends DAOIntegrationTest
         assertEquals(message, expected.getDescription(), actual.getDescription());
 
     }
+
+
+    @Test
+    public void testGetAllParks() {
+        int numberOfRows = 3;
+        String message = "should return all rows";
+        assertEquals(message,numberOfRows,jdbcParkDao.getAllParks().size());
+
+    }
+
+    @Test
+    public void testSearchParkByName() {
+        String name = "Acadia";
+        assertEquals(name, jdbcParkDao.searchParkByName(name).getName());
+    }
+
+    public void testSearchParkByReservation() {
+    }
+
+    @Test
+    public void testGetPark() {
+        int parkID = 2;
+        assertEquals(parkID, jdbcParkDao.getPark(parkID).getParkId());
+    }
 }

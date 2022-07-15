@@ -58,13 +58,24 @@ public class JdbcReservationDao implements ReservationDao{
                 "    ?,?,?,?,?\n" +
                 ")";
 
-        jdbcTemplate.update(sql, reservation.getSiteID(),reservation.getName()
+        int id = jdbcTemplate.update(sql, reservation.getSiteID(),reservation.getName()
                                         ,reservation.getFromDate(), reservation.getToDate()
                                                 ,reservation.getCreateDate());
 
 
 
-        return reservation;
+        sql = "SELECT *\n" +
+                "FROM reservation\n" +
+                "ORDER BY reservation_id DESC LIMIT 1;";
+
+        SqlRowSet row = jdbcTemplate.queryForRowSet(sql);
+
+        if(row.next()) {
+            retrieveValues(row);
+            return mapToReservation(reservationID,siteID,name,fromDate,toDate,createDate);
+        }
+
+        return null;
     }
 
     @Override

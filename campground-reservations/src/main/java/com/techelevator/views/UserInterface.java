@@ -108,7 +108,8 @@ public class UserInterface
     public static boolean displayCampgroundSiteAvailability(JdbcCampgroundDao campgroundDao, JdbcSiteDao jdbcSiteDao,
                                                          int campgroundID, LocalDate fromDate, LocalDate toDate) {
         List<Site> sites = jdbcSiteDao.getAvailableSitesByCampground(campgroundID,fromDate,toDate);
-
+        int diff = toDate.compareTo(fromDate);
+        double fee = campgroundDao.getCampground(campgroundID).getDailyFee();
         if (sites.size() ==  0) {
             System.out.println("There are no available dates...Please try another date");
             return false;
@@ -125,7 +126,7 @@ public class UserInterface
                 boolean access = site.isAccessible();
                 int maxRv = site.getMaxRVLength();
                 boolean utilities = site.isUtilities();
-                System.out.format("%12s%15s%13s%19s%15s%n", siteID, access,max,utilities, 15);
+                System.out.format("%12s%15s%13s%19s%15s%n", siteID, access,max,utilities, fee * diff);
 
             }
             return true;

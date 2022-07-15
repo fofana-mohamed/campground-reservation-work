@@ -30,7 +30,7 @@ public class JdbcParkDao implements ParkDao {
         List<Park> parks = new ArrayList<>();
 
         String sql = "SELECT * " +
-                "FROM park;";
+                "FROM park ORDER BY name;";
 
         SqlRowSet rows = jdbcTemplate.queryForRowSet(sql);
 
@@ -172,9 +172,12 @@ public class JdbcParkDao implements ParkDao {
         String sql = "SELECT * " +
                 "FROM park " +
                 "WHERE park_id = ?;";
-        SqlRowSet rows = jdbcTemplate.queryForRowSet(sql);
-        retrieveValues(rows);
-        park = mapToParks(parkId,name,location,date,area,visitors,description);
+        SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, parkId);
+
+        if (rows.next()) {
+            retrieveValues(rows);
+            park = mapToParks(parkId, name, location, date, area, visitors, description);
+        }
 
         return park;
     }

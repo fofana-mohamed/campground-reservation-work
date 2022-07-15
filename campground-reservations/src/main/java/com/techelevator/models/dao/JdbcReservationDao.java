@@ -56,12 +56,12 @@ public class JdbcReservationDao implements ReservationDao{
                 "VALUES \n" +
                 "(\n" +
                 "    ?,?,?,?,?\n" +
-                ") RETURNING reservation_id;";
+                ")";
 
-        reservation.setSiteID(jdbcTemplate.update(sql, reservation.getSiteID(),reservation.getName()
+        jdbcTemplate.update(sql, reservation.getSiteID(),reservation.getName()
                                         ,reservation.getFromDate(), reservation.getToDate()
-                                                ,reservation.getCreateDate())
-        );
+                                                ,reservation.getCreateDate());
+
 
 
         return reservation;

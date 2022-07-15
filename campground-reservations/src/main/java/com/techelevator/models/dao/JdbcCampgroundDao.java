@@ -19,7 +19,7 @@ public class JdbcCampgroundDao implements CampgroundDao{
     private String name;
     private int openFrom;
     private int openTo;
-    private int dailyFee;
+    private double dailyFee;
 
     //Constructor
     public JdbcCampgroundDao(DataSource dataSource) {jdbcTemplate = new JdbcTemplate(dataSource);}
@@ -120,7 +120,7 @@ public class JdbcCampgroundDao implements CampgroundDao{
     public List<Campground> searchCampgroundsBySeason(int openFrom, int openTo) {
         return null;
     }
-    public Campground mapToCampground(int campgroundID, int parkID, String name, int openFrom, int openTo, int dailyFee) {
+    public Campground mapToCampground(int campgroundID, int parkID, String name, int openFrom, int openTo, double dailyFee) {
         Campground campground = new Campground();
         campground.setCampgroundID(campgroundID);
         campground.setParkID(parkID);
@@ -137,6 +137,6 @@ public class JdbcCampgroundDao implements CampgroundDao{
         this.name = rows.getString("name");
         this.openFrom = rows.getInt("open_from_mm");
         this.openTo = rows.getInt("open_to_mm");
-        this.dailyFee = rows.getInt("daily_fee");
+        this.dailyFee = rows.getDouble("daily_fee");
     }
 }

@@ -9,7 +9,7 @@ public class Campground {
     private String name;
     private int openFrom;
     private int openTo;
-    private int dailyFee;
+    private double dailyFee;
 
     //Constructors
     public Campground() {}
@@ -64,11 +64,11 @@ public class Campground {
         this.openTo = openTo;
     }
 
-    public int getDailyFee() {
+    public double getDailyFee() {
         return dailyFee;
     }
 
-    public void setDailyFee(int dailyFee) {
+    public void setDailyFee(double dailyFee) {
         this.dailyFee = dailyFee;
     }
 

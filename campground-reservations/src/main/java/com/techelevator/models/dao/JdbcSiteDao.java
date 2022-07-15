@@ -53,6 +53,42 @@ public class JdbcSiteDao implements SiteDao{
     }
 
     @Override
+    public List<Site> getAllSitesByCampground(int id) {
+        List<Site> sites = new ArrayList<>();
+        String sql = "SELECT *\n" +
+                "FROM site WHERE campground_id = ?;";
+        SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, id);
+
+        while(rows.next()) {
+            retrieveValues(rows);
+            sites.add(new Site(siteID,campgroundID,siteNumber,maxOccupancy,accessible,maxRVLength,utilities));
+        }
+        return sites;
+    }
+
+    @Override
+    public List<Site> getAvailableSitesByCampground(int id, LocalDate fromDate, LocalDate toDate) {
+        List<Site> sites = new ArrayList<>();
+        String sql = "SELECT DISTINCT s.*\n" +
+                "FROM site AS s\n" +
+                "    LEFT JOIN reservation r on s.site_id = r.site_id\n" +
+                "        AND (\n" +
+                "            (from_date <= ? AND to_date > ?)\n" +
+                "            OR (from_date > ? AND from_date < ?)\n" +
+                "            )\n" +
+                "WHERE campground_id = ? AND r.reservation_id IS NULL\n" +
+                "ORDER BY s.site_id\n" +
+                "LIMIT 5;";
+        SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, fromDate, fromDate,  fromDate, toDate, id);
+
+        while(rows.next()) {
+            retrieveValues(rows);
+            sites.add(new Site(siteID,campgroundID,siteNumber,maxOccupancy,accessible,maxRVLength,utilities));
+        }
+        return sites;
+    }
+
+    @Override
     public List<Site> searchSiteByNumber(int number) {
         List<Site> sites = new ArrayList<>();
         String sql = "SELECT *\n" +

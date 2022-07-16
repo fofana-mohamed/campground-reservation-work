@@ -44,14 +44,14 @@ public class CampgroundApplication  {
                                     boolean hasMatch = false;
                                     while (!hasMatch) {
                                         String[] info = userInterface.getDates();
-
                                         String[] date = info[0].split("/");
                                         LocalDate fromDate = LocalDate.of(Integer.parseInt(date[2]),
                                                 Integer.parseInt(date[0]), Integer.parseInt(date[1]));
                                         date = info[1].split("/");
                                         LocalDate toDate = LocalDate.of(Integer.parseInt(date[2]),
                                                 Integer.parseInt(date[0]), Integer.parseInt(date[1]));
-                                        hasMatch = userInterface.displayCampgroundSiteAvailability(jdbcCampgroundDao, jdbcSiteDao, campChoice, fromDate, toDate);
+                                        hasMatch = userInterface.displayCampgroundSiteAvailability(jdbcCampgroundDao, jdbcSiteDao,
+                                                campChoice, fromDate, toDate);
 
                                         if(hasMatch) {
 

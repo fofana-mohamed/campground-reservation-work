@@ -76,9 +76,11 @@ public class JdbcSiteDao implements SiteDao{
                 "            (from_date <= ? AND to_date > ?)\n" +
                 "            OR (from_date > ? AND from_date < ?)\n" +
                 "            )\n" +
-                "WHERE campground_id = ? AND r.reservation_id IS NULL\n" +
+                "WHERE campground_id = ?\n" +
+                "  AND r.reservation_id IS NULL\n" +
                 "ORDER BY s.site_id\n" +
                 "LIMIT 5;";
+
         SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, fromDate, fromDate,  fromDate, toDate, id);
 
         while(rows.next()) {
@@ -87,6 +89,7 @@ public class JdbcSiteDao implements SiteDao{
         }
         return sites;
     }
+
 
     @Override
     public List<Site> searchSiteByNumber(int number) {

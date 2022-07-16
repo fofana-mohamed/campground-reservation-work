@@ -45,6 +45,15 @@ public class UserInterface
 
         return choice;
     }
+    public static String pickInterface() {
+        System.out.println("Choose Park View");
+        System.out.println("1) Admin");
+        System.out.println("2) Visitor");
+        System.out.println("Please make a selection --> ");
+        String choice = in.nextLine();
+
+        return choice;
+    }
 
     public static void parkInformation(JdbcParkDao jdbcParkDao, int parkID) {
         Park park = jdbcParkDao.getPark(parkID);
@@ -157,7 +166,7 @@ public class UserInterface
         Reservation reservation = new Reservation(0,site,name,fromDate,toDate,createDate);
         reservation = jdbcReservationDao.addReservation(reservation);
 
-        System.out.println("Reservation has been made and the confirmation id id: " + reservation.getReservationID());
+        System.out.println("Reservation has been made and the confirmation id is: " + reservation.getReservationID());
 
     }
     public static int displayRegistration() {

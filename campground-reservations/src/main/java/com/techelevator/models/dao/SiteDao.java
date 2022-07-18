@@ -11,6 +11,7 @@ public interface SiteDao {
     public List<Site> getAllSites();
     public List<Site> getAllSitesByCampground(int id);
     public List<Site> getAvailableSitesByCampground(int id, LocalDate fromDate, LocalDate toDate);
+    public List<Site> getAvailableSitesByPark(int parkID, LocalDate fromDate, LocalDate toDate);
     public List<Site> searchSiteByNumber(int number);
     public List<Site> searchSiteByMaxOccupancy(int number, boolean over, boolean under);
     public List<Site> searchSiteByHandicap(boolean isHandicapped);

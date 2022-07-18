@@ -18,5 +18,4 @@ public class CampgroundCLI {
 		CampgroundApplication application = new CampgroundApplication(dataSource);
 		application.run();
 	}
-
 }

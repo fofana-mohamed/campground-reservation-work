@@ -51,7 +51,7 @@ public class CampgroundApplication  {
                                         LocalDate toDate = LocalDate.of(Integer.parseInt(date[2]),
                                                 Integer.parseInt(date[0]), Integer.parseInt(date[1]));
                                         hasMatch = userInterface.displayCampgroundSiteAvailability(jdbcCampgroundDao, jdbcSiteDao,
-                                                campChoice, fromDate, toDate);
+                                                campChoice, fromDate, toDate, true);
 
                                         if(hasMatch) {
 
@@ -73,7 +73,15 @@ public class CampgroundApplication  {
                             }
                         }
                     } else if (campgroundCommand == 2) {
-                        //res
+                        String[] info = userInterface.getDates();
+                        String[] date = info[0].split("/");
+                        LocalDate fromDate = LocalDate.of(Integer.parseInt(date[2]),
+                                Integer.parseInt(date[0]), Integer.parseInt(date[1]));
+                        date = info[1].split("/");
+                        LocalDate toDate = LocalDate.of(Integer.parseInt(date[2]),
+                                Integer.parseInt(date[0]), Integer.parseInt(date[1]));
+                        userInterface.displayCampgroundSiteAvailability(jdbcCampgroundDao, jdbcSiteDao,
+                                Integer.parseInt(choice), fromDate, toDate, true);
                     } else {
                         continue;
                     }

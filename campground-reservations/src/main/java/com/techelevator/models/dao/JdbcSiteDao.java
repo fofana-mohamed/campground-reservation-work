@@ -90,6 +90,31 @@ public class JdbcSiteDao implements SiteDao{
         return sites;
     }
 
+    @Override
+    public List<Site> getAvailableSitesByPark(int parkID, LocalDate fromDate, LocalDate toDate) {
+        List<Site> sites = new ArrayList<>();
+        String sql = "SELECT s.*\n" +
+                "FROM site AS s\n" +
+                "    LEFT JOIN campground c ON c.campground_id = s.campground_id\n" +
+                "    LEFT JOIN park p ON c.park_id = p.park_id\n" +
+                "    LEFT JOIN reservation r ON s.site_id = r.site_id\n" +
+                "    AND (\n" +
+                "         (from_date <= ? AND to_date > ?)\n" +
+                "          OR (from_date > ? AND from_date < ?)\n" +
+                "    )\n" +
+                "WHERE p.park_id = ?\n" +
+                "AND reservation_id IS NULL\n" +
+                "LIMIT 5;";
+
+        SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, fromDate, fromDate,  fromDate, toDate, parkID);
+
+        while(rows.next()) {
+            retrieveValues(rows);
+            sites.add(new Site(siteID,campgroundID,siteNumber,maxOccupancy,accessible,maxRVLength,utilities));
+        }
+        return sites;
+    }
+
 
     @Override
     public List<Site> searchSiteByNumber(int number) {

@@ -62,13 +62,30 @@ public class UserInterface
 
         System.out.println(park.getName());
         System.out.println("Location:         " + park.getLocation());
-        System.out.println("Park ID:          " + park.getParkId());
+//        System.out.println("Park ID:          " + park.getParkId());
         System.out.println("Established:      " + park.getDate());
         System.out.println("Area:             " + park.getArea());
         System.out.println("Annual Visitors:  " + park.getVisitors());
         System.out.println();
-        System.out.println(park.getDescription());
+        printDescription(park.getDescription());
         System.out.println();
+    }
+    public static void printDescription(String text) {
+
+        int lineLength = 50;
+        while(text.length() > 0) {
+            String line;
+            if(text.length() > lineLength)
+            {
+                    line = text.substring(0, lineLength);
+                    text = text.substring(lineLength);
+            }
+            else {
+                line = text;
+                text = "";
+            }
+            System.out.println(line);
+        }
     }
 
     public static int parkInformationCommand() {
@@ -115,7 +132,7 @@ public class UserInterface
         return choice;
     }
     public static boolean displayCampgroundSiteAvailability(JdbcCampgroundDao campgroundDao, JdbcSiteDao jdbcSiteDao,
-                                                         int campgroundID, LocalDate fromDate, LocalDate toDate) {
+                                                         int campgroundID, LocalDate fromDate, LocalDate toDate, boolean isCamp) {
         List<Site> sites = jdbcSiteDao.getAvailableSitesByCampground(campgroundID,fromDate,toDate);
         int diff = toDate.compareTo(fromDate);
         double fee = campgroundDao.getCampground(campgroundID).getDailyFee();
